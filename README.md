@@ -33,8 +33,8 @@ The configuration file can be found at ./artefacts/config/config_multi-nodes.yam
 File location: ./artefacts/config/config_multi-nodes.yaml
 
 ``` yaml
-vagrant_box: ubuntu/trusty64
-vagrant_box_version: "20180404.0.0"
+vagrant_box: bento/ubuntu-20.04
+vagrant_box_version: "202012.23.0"
 vagrant_ip: 192.168.99.
 vagrant_hostname: vagrant
 vagrant_memory: 4096
@@ -146,7 +146,7 @@ The ./artefacts/scripts/install_ansible.sh contains all the required instruction
 - Install Ansible repository
 - Install Ansible
 - Install expect, dos2unix & tree
-- Adjust timezone to be Singapore
+- Adjust timezone to be Paris
 - Add vagrant user to sudoers
 - Generating SSH key password configuration on ansible server to later access remote servers
 

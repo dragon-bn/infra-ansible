@@ -55,6 +55,8 @@ dos2unix ~/artefacts/scripts/ssh_pass.sh
 chmod +x ~/artefacts/scripts/ssh_pass.sh
 #chown vagrant:vagrant ssh_pass.sh 
 
+ANSIBLE_CONFIG=~/artefacts/scripts/ansible.cfg
+
 # password less authentication using expect scripting language
 ~/artefacts/scripts/ssh_pass.sh $USER $PASSWORD "ansible.sample.com" 
 ~/artefacts/scripts/ssh_pass.sh $USER $PASSWORD "nfsclient.sample.com" 
@@ -63,11 +65,9 @@ chmod +x ~/artefacts/scripts/ssh_pass.sh
 ~/artefacts/scripts/ssh_pass.sh $USER $PASSWORD "jenkins.sample.com"
 ~/artefacts/scripts/ssh_pass.sh $USER $PASSWORD "gitlab.sample.com"
 
-ansible-playbook ~/artefacts/playbooks/nfs_server.yaml
-ansible-playbook ~/artefacts/playbooks/nfs_clients.yaml
-ansible-playbook ~/artefacts/playbooks/install_java.yaml
-ansible-playbook ~/artefacts/playbooks/install_jenkins.yaml
-ansible-playbook ~/artefacts/playbooks/install_docker.yaml
-ansible-playbook ~/artefacts/playbooks/install_gitlab.yaml
-
-
+ansible-playbook ~/artefacts/playbooks/nfs_server.yaml -vvv
+ansible-playbook ~/artefacts/playbooks/nfs_clients.yaml -vvv
+ansible-playbook ~/artefacts/playbooks/install_java.yaml -vvv
+ansible-playbook ~/artefacts/playbooks/install_jenkins.yaml -vvv
+ansible-playbook ~/artefacts/playbooks/install_docker.yaml -vvv
+ansible-playbook ~/artefacts/playbooks/install_gitlab.yaml -vvv
