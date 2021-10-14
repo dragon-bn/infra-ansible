@@ -21,7 +21,7 @@
       get_url:
         url: https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh
         dest: /tmp/script.deb.sh
-        mode: 0777
+        mode: "0777"
 
     - name: Run GitLab repository script
       shell: /tmp/script.deb.sh

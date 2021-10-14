@@ -10,12 +10,13 @@ PASSWORD=vagrant
 # source /etc/environment
 
 # add addresses to /etc/hosts 
-echo "192.168.99.155 ansible.sample.com" | sudo tee -a /etc/hosts 
-echo "192.168.99.154 gitlab.sample.com" | sudo tee -a /etc/hosts 
-echo "192.168.99.153 jenkins.sample.com" | sudo tee -a /etc/hosts 
-echo "192.168.99.152 docker.sample.com" | sudo tee -a /etc/hosts 
-echo "192.168.99.151 nfsclient.sample.com" | sudo tee -a /etc/hosts
-echo "192.168.99.150 nfsserver.sample.com" | sudo tee -a /etc/hosts  
+# echo "add addresses to /etc/hosts 
+# echo "192.168.99.155 ansible.sample.com" | sudo tee -a /etc/hosts 
+# echo "192.168.99.154 gitlab.sample.com" | sudo tee -a /etc/hosts 
+# echo "192.168.99.153 jenkins.sample.com" | sudo tee -a /etc/hosts 
+# echo "192.168.99.152 docker.sample.com" | sudo tee -a /etc/hosts 
+# echo "192.168.99.151 nfsclient.sample.com" | sudo tee -a /etc/hosts
+# echo "192.168.99.150 nfsserver.sample.com" | sudo tee -a /etc/hosts  
 
 echo " " | sudo tee -a /etc/ansible/hosts
 echo "[all]" | sudo tee -a /etc/ansible/hosts
@@ -51,13 +52,14 @@ echo "[gitlab]" | sudo tee -a /etc/ansible/hosts
 echo "gitlab.sample.com" | sudo tee -a /etc/ansible/hosts
 
 #cat /etc/ansible/hosts
-dos2unix ~/artefacts/scripts/ssh_pass.sh
-chmod +x ~/artefacts/scripts/ssh_pass.sh
+dos2unix --verbose ~/artefacts/scripts/ssh_pass.sh
+chmod --verbose +x ~/artefacts/scripts/ssh_pass.sh
 #chown vagrant:vagrant ssh_pass.sh 
 
-ANSIBLE_CONFIG=~/artefacts/scripts/ansible.cfg
+export ANSIBLE_CONFIG=~/artefacts/scripts/ansible.cfg
 
 # password less authentication using expect scripting language
+echo " password less authentication using expect scripting language"
 ~/artefacts/scripts/ssh_pass.sh $USER $PASSWORD "ansible.sample.com" 
 ~/artefacts/scripts/ssh_pass.sh $USER $PASSWORD "nfsclient.sample.com" 
 ~/artefacts/scripts/ssh_pass.sh $USER $PASSWORD "nfsserver.sample.com" 
@@ -65,9 +67,17 @@ ANSIBLE_CONFIG=~/artefacts/scripts/ansible.cfg
 ~/artefacts/scripts/ssh_pass.sh $USER $PASSWORD "jenkins.sample.com"
 ~/artefacts/scripts/ssh_pass.sh $USER $PASSWORD "gitlab.sample.com"
 
-ansible-playbook ~/artefacts/playbooks/nfs_server.yaml -vvv
-ansible-playbook ~/artefacts/playbooks/nfs_clients.yaml -vvv
-ansible-playbook ~/artefacts/playbooks/install_java.yaml -vvv
-ansible-playbook ~/artefacts/playbooks/install_jenkins.yaml -vvv
-ansible-playbook ~/artefacts/playbooks/install_docker.yaml -vvv
-ansible-playbook ~/artefacts/playbooks/install_gitlab.yaml -vvv
+
+echo "playing playbook"
+echo " = > playing playbook nfs_servers"
+ansible-playbook ~/artefacts/playbooks/nfs_server.yaml
+echo " = > playing playbook nfs_clients"
+ansible-playbook ~/artefacts/playbooks/nfs_clients.yaml
+echo " = > playing playbook install java"
+ansible-playbook ~/artefacts/playbooks/install_java.yaml
+echo " = > playing playbook install jenkins"
+ansible-playbook ~/artefacts/playbooks/install_jenkins.yaml
+echo " = > playing playbook install docker"
+ansible-playbook ~/artefacts/playbooks/install_docker.yaml
+echo " = > playing playbook install gitlab"
+ansible-playbook ~/artefacts/playbooks/install_gitlab.yaml
